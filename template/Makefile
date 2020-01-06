@@ -16,7 +16,7 @@ DEBUG = 1
 OPT = -O0 #-flto
 
 OPENOCD=../riscv-openocd/bin/openocd -f ./openocd.cfg
-DFU_UTIL=../gd32-dfu-utils-linux/bin/dfu-util
+DFU_UTIL=../gd32-dfu/linux/dfu-util
 
 # Build path
 BUILD_DIR = build
