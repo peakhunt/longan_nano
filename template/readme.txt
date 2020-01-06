@@ -19,4 +19,4 @@
    it looks like the branch is nuclei_dev.
    build and use.
 
-   XXX why can't I break at main()?
+   XXX why can't I break at main() nor before main?

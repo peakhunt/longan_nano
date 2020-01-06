@@ -3,7 +3,7 @@
 #include "systick.h"
 #include <stdio.h>
 
-#define INTERVAL    100
+#define INTERVAL    150
 
 extern uint32_t disable_mcycle_minstret();
 
