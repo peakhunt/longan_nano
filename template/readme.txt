@@ -19,4 +19,11 @@
    it looks like the branch is nuclei_dev.
    build and use.
 
-   XXX why can't I break at main() nor before main?
+   to break at main or anything earlier)
+   riscv-none-embed-gdb -ex 'target extended-remote: 3333' ./build/gd32vf103.elf
+   monitor reset halt
+   load
+   break XXX
+   continue
+
+   XXX maybe there is a problem with "reset". let's investigate
