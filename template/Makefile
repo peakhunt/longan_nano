@@ -16,7 +16,7 @@ DEBUG = 1
 OPT = -O0 #-flto
 
 OPENOCD=../riscv-openocd/bin/openocd -f ./openocd.cfg
-DFU_UTIL=/Users/hawk/sandbox/longan_nano_demo/gd32-dfu-utils-osx/bin/dfu-util
+DFU_UTIL=../gd32-dfu-utils-linux/bin/dfu-util
 
 # Build path
 BUILD_DIR = build

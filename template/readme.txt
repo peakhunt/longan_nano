@@ -20,10 +20,14 @@
    build and use.
 
    to break at main or anything earlier)
+   /*
    riscv-none-embed-gdb -ex 'target extended-remote: 3333' ./build/gd32vf103.elf
    monitor reset halt
    load
    break XXX
    continue
 
-   XXX maybe there is a problem with "reset". let's investigate
+   */
+   According to GD32VF103 user manual,
+   pin PB4 can be used as JTAG TRST. But there is no SRST signal.
+   The only way
