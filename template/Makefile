@@ -1,5 +1,10 @@
 ###### GD32V Makefile ######
 
+ifeq ($(shell uname | cut -d _ -f 1), Linux)
+  PLATFORM:=linux
+else
+  PLATFORM:=osx
+endif
 
 ######################################
 # target
@@ -15,8 +20,8 @@ DEBUG = 1
 # optimization
 OPT = -O0 #-flto
 
-OPENOCD=../riscv-openocd/linux/openocd -f ./openocd.cfg
-DFU_UTIL=../gd32-dfu/linux/dfu-util
+OPENOCD=../riscv-openocd/${PLATFORM}/openocd -f ./openocd.cfg
+DFU_UTIL=../gd32-dfu/${PLATFORM}/dfu-util
 
 # Build path
 BUILD_DIR = build
