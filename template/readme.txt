@@ -13,3 +13,10 @@
    5.2) dfu-util -l
        will show you the device
    5.3)
+
+6) openocd
+   clone https://github.com/riscv-mcu/riscv-openocd.git
+   it looks like the branch is nuclei_dev.
+   build and use.
+
+   XXX why can't I break at main()?

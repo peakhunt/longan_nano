@@ -15,12 +15,13 @@ DEBUG = 1
 # optimization
 OPT = -O0 #-flto
 
+OPENOCD=../riscv-openocd/bin/openocd -f ./openocd.cfg
 DFU_UTIL=/Users/hawk/sandbox/longan_nano_demo/gd32-dfu-utils-osx/bin/dfu-util
 
 # Build path
 BUILD_DIR = build
 
-FIRMWARE_DIR := /Volumes/Nifty/gd32/GD32VF103_Firmware_Library_V1.0.2/Firmware
+FIRMWARE_DIR := ../GD32VF103_Firmware_Library_V1.0.2/Firmware
 SYSTEM_CLOCK := 8000000      # external crystal
 
 ######################################
@@ -168,7 +169,7 @@ clean:
 	-rm -fR .deps $(BUILD_DIR)
 
 flash: all
-	-openocd -f ./openocd_ft2232.cfg -c init -c " flash protect 0 0 last off; \
+	${OPENOCD} -c init -c " flash protect 0 0 last off; \
 			program {$(BUILD_DIR)/$(TARGET).elf} verify; mww 0xe004200c 0x4b5a6978; mww 0xe0042008 0x01; resume; exit 0;"
 
 dfu: all
