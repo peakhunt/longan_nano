@@ -15,7 +15,7 @@ DEBUG = 1
 # optimization
 OPT = -O0 #-flto
 
-OPENOCD=../riscv-openocd/bin/openocd -f ./openocd.cfg
+OPENOCD=../riscv-openocd/linux/openocd -f ./openocd.cfg
 DFU_UTIL=../gd32-dfu/linux/dfu-util
 
 # Build path
