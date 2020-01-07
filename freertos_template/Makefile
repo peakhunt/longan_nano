@@ -81,6 +81,8 @@ FREERTOS_INCLUDES := \
   -I $(FREERTOS_SOURCE_DIR)/portable/GCC/RISC-V \
   -I $(FREERTOS_SOURCE_DIR)/portable/GCC/RISC-V/chip_specific_extensions/RV32I_CLINT_no_extensions
 
+FREERTOS_ASM_DEFS := \
+  -DportasmHANDLE_INTERRUPT=irq_entry
 
 C_SOURCES += \
   $(FREERTOS_SRC)\
@@ -132,7 +134,8 @@ C_INCLUDES =  \
 $(FREERTOS_INCLUDES)
 
 # compile gcc flags
-ASFLAGS := $(CFLAGS) $(ARCH) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wl,-Bstatic#, -ffreestanding -nostdlib
+ASFLAGS := $(CFLAGS) $(ARCH) $(AS_DEFS) $(AS_INCLUDES) $(C_INCLUDES) $(OPT) -Wl,-Bstatic#, -ffreestanding -nostdlib
+ASFLAGS += $(FREERTOS_ASM_DEFS)
 
 CFLAGS := $(CFLAGS) $(ARCH) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wl,-Bstatic  -ffunction-sections -fdata-sections # -ffreestanding -nostdlib
 
@@ -184,7 +187,7 @@ $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) .deps
 
 $(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR) .deps
 	@echo "AS $<"
-	@$(AS) -c $(CFLAGS) -MMD -MP  \
+	@$(AS) -c $(ASFLAGS) -MMD -MP  \
 		-MF .deps/$(notdir $(<:.s=.d)) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile

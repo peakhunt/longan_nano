@@ -25,6 +25,8 @@
 #define configSUPPORT_STATIC_ALLOCATION           1
 #define configSUPPORT_DYNAMIC_ALLOCATION          0
 
+#define configISR_STACK_SIZE_WORDS                128
+
 #define configMAX_TASK_NAME_LEN			              ( 16 )
 #define configUSE_TRACE_FACILITY		              0
 #define configUSE_16_BIT_TICKS			              0
@@ -68,10 +70,9 @@ to exclude the API function. */
 
 /* Normal assert() semantics without relying on the provision of an assert.h
 header file. */
+/*
 void vAssertCalled( void );
 #define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled()
-
-/* Overwrite some of the stack sizes allocated to various test and demo tasks.
-Like all task stack sizes, the value is the number of words, not bytes. */
+*/
 
 #endif /* FREERTOS_CONFIG_H */
