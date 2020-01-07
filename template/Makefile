@@ -44,8 +44,8 @@ $(wildcard ./*.c)
 
 # ASM sources
 ASM_SOURCES =  \
-./start.s \
-$(FIRMWARE_DIR)/RISCV/env_Eclipse/entry.s
+./start.S \
+$(FIRMWARE_DIR)/RISCV/env_Eclipse/entry.S
 
 #$(FIRMWARE_DIR)/RISCV/env_Eclipse/start.s \
 
@@ -136,7 +136,7 @@ OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 
 # list of ASM program objects
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.S=.o)))
 
 vpath %.S $(sort $(dir $(ASM_SOURCES)))
 
