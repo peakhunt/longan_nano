@@ -13,6 +13,13 @@ static StackType_t    _led_task_stack[configMINIMAL_STACK_SIZE];
 static StaticTask_t   _led_task;
 
 void
+vAssertCalled(void)
+{
+  while(1)
+    ;
+}
+
+void
 vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer,
     StackType_t **ppxIdleTaskStackBuffer,
     uint32_t *pulIdleTaskStackSize )
