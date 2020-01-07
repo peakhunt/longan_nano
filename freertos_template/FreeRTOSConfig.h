@@ -22,7 +22,7 @@
 #define configCPU_CLOCK_HZ				                ( 108000000U )
 #define configTICK_RATE_HZ				                ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES			                ( 7 )
-#define configMINIMAL_STACK_SIZE		              ( ( unsigned short ) 70 )
+#define configMINIMAL_STACK_SIZE		              ( ( unsigned short ) 50 )
 
 #define configSUPPORT_STATIC_ALLOCATION           1
 #define configSUPPORT_DYNAMIC_ALLOCATION          0

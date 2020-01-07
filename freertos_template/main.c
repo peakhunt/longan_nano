@@ -47,6 +47,8 @@ led_task(void* priv)
 int
 main(void)
 {
+  // vStartStaticallyAllocatedTasks();
+
   // at this point
   // a) the chip is set to use external 8 MHz crystal to
   //    generate 108 MHz core clock
@@ -72,8 +74,6 @@ main(void)
 
   vTaskStartScheduler();
 
-  for(;;)
-  {
-  }
   // should never reach here
+  return 0;
 }
