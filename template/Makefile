@@ -10,6 +10,7 @@ endif
 # target
 ######################################
 TARGET = gd32vf103
+TARGET_VARIANT = c8t6
 
 
 ######################################
@@ -110,7 +111,13 @@ CFLAGS += -std=gnu11 -MMD -MP #.deps/$(notdir $(<:.c=.d)) -MF$(@:%.o=%.d) -MT$(@
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = $(FIRMWARE_DIR)/RISCV/env_Eclipse/GD32VF103x8.lds
+ifeq (${TARGET_VARIANT}, c8t6)
+  LDSCRIPT = $(FIRMWARE_DIR)/RISCV/env_Eclipse/GD32VF103x8.lds
+endif
+
+ifeq (${TARGET_VARIANT}, cbt6)
+  LDSCRIPT = $(FIRMWARE_DIR)/RISCV/env_Eclipse/GD32VF103xB.lds
+endif
 
 # libraries
 #LIBS = -lc_nano -lm
