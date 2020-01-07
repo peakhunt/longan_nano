@@ -2,9 +2,11 @@
 
 ## Most of all
 I ordered this from Aliexpress expecting GD32VF103CBT6 but GD32VF103C8T6 came, which is smaller in flash/sram size.
-What a confusion.
+Just ordered real CBT6.
 
 ## ToDo
 1. debug setup
-   with FT2232H chip, it basically is working now but there is a problem with chip reset.
+   it seems to be working but needs more experiment.
+   Especially I wonder if we really have to go with SRST connected to Reset.
+   There could be an workaround using system reset of ECLIC.
 2. basic documentation
