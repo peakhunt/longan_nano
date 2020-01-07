@@ -6,4 +6,5 @@ What a confusion.
 
 ## ToDo
 1. debug setup
+   with FT2232H chip, it basically is working now but there is a problem with chip reset.
 2. basic documentation
