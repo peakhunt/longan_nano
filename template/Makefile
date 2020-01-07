@@ -96,7 +96,7 @@ C_INCLUDES =  \
 -I$(FIRMWARE_DIR)/RISCV/drivers 
 
 # compile gcc flags
-ASFLAGS := $(CFLAGS) $(ARCH) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wl,-Bstatic#, -ffreestanding -nostdlib
+ASFLAGS := $(CFLAGS) $(ARCH) $(AS_DEFS) $(AS_INCLUDES) $(C_INCLUDES) $(OPT) -Wl,-Bstatic#, -ffreestanding -nostdlib
 
 CFLAGS := $(CFLAGS) $(ARCH) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wl,-Bstatic  -ffunction-sections -fdata-sections # -ffreestanding -nostdlib
 
@@ -148,7 +148,7 @@ $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) .deps
 
 $(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR) .deps
 	@echo "AS $<"
-	@$(AS) -c $(CFLAGS) -MMD -MP  \
+	@$(AS) -c $(ASFLAGS) -MMD -MP  \
 		-MF .deps/$(notdir $(<:.s=.d)) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
