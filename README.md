@@ -12,7 +12,9 @@ Just ordered real CBT6.
 2. basic documentation (in progress )  
    ...
 3. FreeRTOS template ( in progress )  
-   basically demo is working but I have to modify portASM.S.  
+   basically demo is working but I had to modify portASM.S.  
+   The issue was mcause bit encoding. It surely seems different from  
+   standard RISC-V literature.
    And I'm not sure interrupt handling is being done properly.  
    It's just too hard to read the chinese Bumblebee core document.  
 4. ...
