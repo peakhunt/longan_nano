@@ -5,14 +5,14 @@ I ordered this from Aliexpress expecting GD32VF103CBT6 but GD32VF103C8T6 came, w
 Just ordered real CBT6.
 
 ## ToDo
-1. debug setup
-   it seems to be working but needs more experiment.
-   Especially I wonder if we really have to go with SRST connected to Reset.
-   There could be an workaround using system reset of ECLIC.
-2. basic documentation (in progress )
+1. debug setup  
+   it seems to be working but needs more experiment.  
+   Especially I wonder if we really have to go with SRST connected to Reset.  
+   There could be an workaround using system reset of ECLIC.  
+2. basic documentation (in progress )  
    ...
-3. FreeRTOS template ( in progress )
-   basically demo is working but I have to modify portASM.S.
-   And I'm not sure interrupt handling is being done properly.
-   It's just too hard to read the chinese Bumblebee core document.
+3. FreeRTOS template ( in progress )  
+   basically demo is working but I have to modify portASM.S.  
+   And I'm not sure interrupt handling is being done properly.  
+   It's just too hard to read the chinese Bumblebee core document.  
 4. ...
