@@ -22,6 +22,8 @@ static StaticQueue_t  _led_queues[3];
 static uint8_t        _led_queue_bufs[3][4];
 static QueueHandle_t  _led_queue_handles[3];
 
+const int  __attribute__((used)) uxTopUsedPriority = configMAX_PRIORITIES - 1;
+
 void
 vAssertCalled(void)
 {
