@@ -4,7 +4,7 @@
 I ordered this from Aliexpress expecting GD32VF103CBT6 but GD32VF103C8T6 came, which is smaller in flash/sram size.
 Just ordered real CBT6.
 
-## ToDo
+## Status
 1. debug setup  
    it seems to be working but needs more experiment.  
    Especially I wonder if we really have to go with SRST connected to Reset.  
