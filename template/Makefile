@@ -95,14 +95,14 @@ C_INCLUDES =  \
 -I$(FIRMWARE_DIR)/GD32VF103_standard_peripheral \
 -I$(FIRMWARE_DIR)/RISCV/drivers 
 
+ifeq ($(DEBUG), 1)
+CFLAGS += -g -gdwarf-2
+endif
+
 # compile gcc flags
 ASFLAGS := $(CFLAGS) $(ARCH) $(AS_DEFS) $(AS_INCLUDES) $(C_INCLUDES) $(OPT) -Wl,-Bstatic#, -ffreestanding -nostdlib
 
 CFLAGS := $(CFLAGS) $(ARCH) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wl,-Bstatic  -ffunction-sections -fdata-sections # -ffreestanding -nostdlib
-
-ifeq ($(DEBUG), 1)
-CFLAGS += -g -gdwarf-2
-endif
 
 # Generate dependency information
 CFLAGS += -std=gnu11 -MMD -MP #.deps/$(notdir $(<:.c=.d)) -MF$(@:%.o=%.d) -MT$(@:%.o=%.d)
