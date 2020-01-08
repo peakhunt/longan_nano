@@ -24,6 +24,6 @@ Just ordered real CBT6.
    For C8T6, set it to c8t6  
    For CBT6, set it to cbt6
 
-5. Makefile cleanup (in progress)
+5. Makefile cleanup (in progress)  
    Maybe it's much better to move Makefiles to top level template Makefile and  
    include it for specific project through make variables definitions and overrides.
