@@ -13,4 +13,7 @@
 	/* No additional registers to restore, so this macro does nothing. */
 	.endm
 
+/* hkim temporary workaround */
+#define portasmMCAUSE_MASK  0xfff
+
 #endif /* __FREERTOS_RISC_V_EXTENSIONS_H__ */
