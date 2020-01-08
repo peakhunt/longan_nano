@@ -13,7 +13,7 @@
  * See http://www.freertos.org/a00110.html.
  *----------------------------------------------------------*/
 
-#define configCLINT_BASE_ADDRESS		              0xD0FF4008
+#define configCLINT_BASE_ADDRESS		              0
 #define configUSE_PREEMPTION			                1
 #define configUSE_IDLE_HOOK				                0
 #define configUSE_TICK_HOOK				                0
@@ -23,7 +23,7 @@
 #define configCPU_CLOCK_HZ				                ( 108000000U / 4 )
 #define configTICK_RATE_HZ				                ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES			                ( 7 )
-#define configMINIMAL_STACK_SIZE		              ( ( unsigned short ) 50 )
+#define configMINIMAL_STACK_SIZE		              ( ( unsigned short ) 70 )
 
 #define configSUPPORT_STATIC_ALLOCATION           1
 #define configSUPPORT_DYNAMIC_ALLOCATION          0

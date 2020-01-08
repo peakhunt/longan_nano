@@ -44,8 +44,7 @@ $(wildcard ./*.c)
 
 # ASM sources
 ASM_SOURCES =  \
-./start.S \
-$(FIRMWARE_DIR)/RISCV/env_Eclipse/entry.S
+./start.S
 
 #$(FIRMWARE_DIR)/RISCV/env_Eclipse/start.s \
 
@@ -78,8 +77,7 @@ FREERTOS_INC = $(FREERTOS_SOURCE_DIR)/include
 
 FREERTOS_INCLUDES := \
   -I $(FREERTOS_INC) \
-  -I $(FREERTOS_SOURCE_DIR)/portable/GCC/RISC-V \
-  -I $(FREERTOS_SOURCE_DIR)/portable/GCC/RISC-V/chip_specific_extensions/RV32I_CLINT_no_extensions
+  -I $(FREERTOS_SOURCE_DIR)/portable/GCC/RISC-V
 
 FREERTOS_ASM_DEFS := \
   -DportasmHANDLE_INTERRUPT=irq_entry

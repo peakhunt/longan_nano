@@ -69,6 +69,7 @@
     .weak  CAN1_EWMC_IRQHandler
     .weak  USBFS_IRQHandler
 
+    .global vector_base
 vector_base:
     j _start
     .align    2
@@ -187,13 +188,11 @@ _start0800:
     csrw CSR_MTVT, t0
 
 	/* Intial the mtvt2 and enable it*/
-    /* la t0, irq_entry */
     la t0, freertos_risc_v_trap_handler
     csrw CSR_MTVT2, t0
     csrs CSR_MTVT2, 0x1
 
     /* Intial the CSR MTVEC for the Trap ane NMI base addr*/
-    /* la t0, trap_entry */
     la t0, freertos_risc_v_trap_handler
     csrw CSR_MTVEC, t0
 
