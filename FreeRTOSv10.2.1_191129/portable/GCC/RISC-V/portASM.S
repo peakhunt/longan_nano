@@ -214,10 +214,10 @@ handle_synchronous:
 test_if_environment_call:
 	li t0, 11 							/* 11 == environment call. */
 
-  // FIXME hkim
-  addi t1, a0, 0
-  li   t2, 0xfff
-  and a0, t1, t2
+#if( portasmMCAUSE_MASK != 0) // FIXME hkim
+  li t1, portasmMCAUSE_MASK
+  and a0, a0, t1
+#endif
 
 	bne a0, t0, is_exception			/* Not an M environment call, so some other exception. */
 	load_x sp, xISRStackTop				/* Switch to ISR stack before function call. */
