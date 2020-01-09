@@ -8,6 +8,17 @@ Just ordered real CBT6.
 ## Status
 1. debug setup  
    FT2232H based JTAG debugging works quite ok.  
+   Connection is  
+   | FT2232H | GD32VF103 |  
+   | ------- | --------- |  
+   | ADBUS0  | TCK       |  
+   | ADBUS1  | TDI       |  
+   | ADBUS2  | TDO       |  
+   | ADBUS3  | TMS       |  
+   | nSRST   | Reset     |  
+   In project template directory, invoke openocd like
+   ../riscv-openocd/<your OS>/openocd -f ./openocd.cfg
+
    it seems to be working but needs more experiment.  
    Especially I wonder if we really have to go with SRST connected to Reset.  
    There could be an workaround using system reset of ECLIC.  
