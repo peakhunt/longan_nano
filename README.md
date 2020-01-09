@@ -19,7 +19,7 @@ Just ordered real CBT6.
    | nSRST   | Reset     |
 
    In project template directory, invoke openocd like  
-   **../riscv-openocd/<your OS>/openocd -f ./openocd.cfg**
+   **../riscv-openocd/your OS/openocd -f ./openocd.cfg**
 
    it seems to be working but needs more experiment.  
    Especially I wonder if we really have to go with SRST connected to Reset.  
