@@ -9,6 +9,7 @@ Just ordered real CBT6.
 1. debug setup  
    FT2232H based JTAG debugging works quite ok.  
    Connection is  
+
    | FT2232H | GD32VF103 |
    | ------- | --------- |
    | ADBUS0  | TCK       |
@@ -16,6 +17,7 @@ Just ordered real CBT6.
    | ADBUS2  | TDO       |
    | ADBUS3  | TMS       |
    | nSRST   | Reset     |
+
    In project template directory, invoke openocd like
    ../riscv-openocd/<your OS>/openocd -f ./openocd.cfg
 
