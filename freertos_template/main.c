@@ -6,21 +6,43 @@
 #include "task.h"
 #include "queue.h"
 
-#define INTERVAL    250
+#define INTERVAL    150
 
 #define R   0
 #define G   1
 #define B   2
 
-// static StackType_t    _led_task_stack[configMINIMAL_STACK_SIZE];
-// static StaticTask_t   _led_task;
+static void led_task_r(void* priv);
+static void led_task_g(void* priv);
+static void led_task_b(void* priv);
 
-static StackType_t    _led_tasks_stack[3][configMINIMAL_STACK_SIZE];
-static StaticTask_t   _led_tasks[3];
+typedef struct
+{
+  StackType_t       stack[configMINIMAL_STACK_SIZE];
+  StaticTask_t      task;
+  StaticQueue_t     queue;
+  uint8_t           queue_buf[4];
+  QueueHandle_t     queue_handle;
+  const char*       name;
+  TaskFunction_t    func;
+} led_task_t;
 
-static StaticQueue_t  _led_queues[3];
-static uint8_t        _led_queue_bufs[3][4];
-static QueueHandle_t  _led_queue_handles[3];
+static led_task_t   _led_tasks[3] =
+{
+  {
+    .name = "LEDTaskR",
+    .func = led_task_r,
+  },
+  {
+    .name = "LEDTaskG",
+    .func = led_task_g,
+  },
+  {
+    .name = "LEDTaskB",
+    .func = led_task_b,
+  },
+};
+
 
 const int  __attribute__((used)) uxTopUsedPriority = configMAX_PRIORITIES - 1;
 
@@ -56,9 +78,9 @@ led_task_r(void* priv)
 
     vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
 
-    xQueueSend(_led_queue_handles[1], &b, portMAX_DELAY);
+    xQueueSend(_led_tasks[G].queue_handle, &b, portMAX_DELAY);
 
-    xQueueReceive(_led_queue_handles[0], &b, portMAX_DELAY);
+    xQueueReceive(_led_tasks[R].queue_handle, &b, portMAX_DELAY);
   }
 
 }
@@ -70,13 +92,13 @@ led_task_g(void* priv)
 
   while(1)
   {
-    xQueueReceive(_led_queue_handles[1], &b, portMAX_DELAY);
+    xQueueReceive(_led_tasks[G].queue_handle, &b, portMAX_DELAY);
 
     longan_nano_led_on(LEDG);
     longan_nano_led_off(LEDR);
     vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
 
-    xQueueSend(_led_queue_handles[2], &b, portMAX_DELAY);
+    xQueueSend(_led_tasks[B].queue_handle, &b, portMAX_DELAY);
   }
 }
 
@@ -87,42 +109,19 @@ led_task_b(void* priv)
 
   while(1)
   {
-    xQueueReceive(_led_queue_handles[2], &b, portMAX_DELAY);
+    xQueueReceive(_led_tasks[B].queue_handle, &b, portMAX_DELAY);
 
     longan_nano_led_on(LEDB);
     longan_nano_led_off(LEDG);
     vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
 
-    xQueueSend(_led_queue_handles[0], &b, portMAX_DELAY);
+    xQueueSend(_led_tasks[R].queue_handle, &b, portMAX_DELAY);
   }
 }
-
-/*
-static void
-led_task(void* priv)
-{
-  while(1)
-  {
-    longan_nano_led_on(LEDR);
-    longan_nano_led_off(LEDB);
-    vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
-
-    longan_nano_led_on(LEDG);
-    longan_nano_led_off(LEDR);
-    vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
-
-    longan_nano_led_on(LEDB);
-    longan_nano_led_off(LEDG);
-    vTaskDelay(INTERVAL / portTICK_PERIOD_MS);
-  }
-}
-*/
 
 int
 main(void)
 {
-  // vStartStaticallyAllocatedTasks();
-
   // at this point
   // a) the chip is set to use external 8 MHz crystal to
   //    generate 108 MHz core clock
@@ -137,45 +136,18 @@ main(void)
   longan_nano_led_off(LEDG);
   longan_nano_led_off(LEDB);
 
-  /*
-  xTaskCreateStatic(led_task,
-    "LEDTask",
-    configMINIMAL_STACK_SIZE,
-    NULL,
-    tskIDLE_PRIORITY + 1,
-    _led_task_stack,
-    &_led_task
-  );
-  */
-  xTaskCreateStatic(led_task_r,
-    "LEDTaskR",
-    configMINIMAL_STACK_SIZE,
-    NULL,
-    tskIDLE_PRIORITY + 1,
-    _led_tasks_stack[0],
-    &_led_tasks[0]
-  );
-  _led_queue_handles[0] = xQueueCreateStatic(4, 1, _led_queue_bufs[0], &_led_queues[0]);
-
-  xTaskCreateStatic(led_task_g,
-    "LEDTaskG",
-    configMINIMAL_STACK_SIZE,
-    NULL,
-    tskIDLE_PRIORITY + 1,
-    _led_tasks_stack[1],
-    &_led_tasks[1]
-  );
-  _led_queue_handles[1] = xQueueCreateStatic(4, 1, _led_queue_bufs[1], &_led_queues[1]);
-
-  xTaskCreateStatic(led_task_b,
-    "LEDTaskB",
-    configMINIMAL_STACK_SIZE,
-    NULL,
-    tskIDLE_PRIORITY + 1,
-    _led_tasks_stack[2],
-    &_led_tasks[2]
-  );
-  _led_queue_handles[2] = xQueueCreateStatic(4, 1, _led_queue_bufs[2], &_led_queues[2]);
+  for(int i = 0; i < 3; i++)
+  {
+    xTaskCreateStatic(_led_tasks[i].func,
+      _led_tasks[i].name,
+      configMINIMAL_STACK_SIZE,
+      NULL,
+      tskIDLE_PRIORITY + 1,
+      _led_tasks[i].stack,
+      &_led_tasks[i].task
+    );
+    _led_tasks[i].queue_handle = xQueueCreateStatic(sizeof(_led_tasks[i].queue_buf), 1, _led_tasks[i].queue_buf, &_led_tasks[i].queue);
+  }
 
   vTaskStartScheduler();
 
