@@ -42,3 +42,6 @@ Just ordered real CBT6.
 5. Makefile cleanup (in progress)  
    Maybe it's much better to move Makefiles to top level template Makefile and  
    include it for specific project through make variables definitions and overrides.
+
+6. Bumblebee core english translation  
+   This is a pain in the ass!
