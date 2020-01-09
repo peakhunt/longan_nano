@@ -18,7 +18,7 @@ Just ordered real CBT6.
    | ADBUS3  | TMS       |
    | nSRST   | Reset     |
 
-   In project template directory, invoke openocd like
+   In project template directory, invoke openocd like  
    **../riscv-openocd/<your OS>/openocd -f ./openocd.cfg**
 
    it seems to be working but needs more experiment.  
