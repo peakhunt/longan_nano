@@ -45,3 +45,5 @@ Just ordered real CBT6.
 
 6. Bumblebee core english translation  
    This is a pain in the ass!
+
+7. JLinkGDBServer Command
