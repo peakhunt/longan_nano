@@ -16,11 +16,15 @@ void LCD_Writ_Bus(uint8_t dat)
   OLED_CS_Clr();
 
   while(RESET == spi_i2s_flag_get(SPI0, SPI_FLAG_TBE));
+
   spi_i2s_data_transmit(SPI0, dat);
+
   while(RESET == spi_i2s_flag_get(SPI0, SPI_FLAG_RBNE));
+
   spi_i2s_data_receive(SPI0);
 
   OLED_CS_Set();
+
 #elif SPI0_CFG == 2
   spi_dma_enable(SPI0, SPI_DMA_TRANSMIT);
 #else
@@ -49,6 +53,7 @@ void LCD_Writ_Bus(uint8_t dat)
 void LCD_WR_DATA8(uint8_t dat)
 {
   OLED_DC_Set();//Write data
+
   LCD_Writ_Bus(dat);
 }
 
@@ -61,6 +66,7 @@ void LCD_WR_DATA8(uint8_t dat)
 void LCD_WR_DATA(uint16_t dat)
 {
   OLED_DC_Set();//Write data
+
   LCD_Writ_Bus(dat>>8);
   LCD_Writ_Bus(dat);
 }
@@ -71,9 +77,11 @@ void LCD_WR_DATA(uint16_t dat)
   Entry data: command written by dat
   Return value: None
  ******************************************************************************/
-void LCD_WR_REG(uint8_t dat)
+void
+LCD_WR_REG(uint8_t dat)
 {
   OLED_DC_Clr();//Write command
+
   LCD_Writ_Bus(dat);
 }
 
@@ -572,9 +580,20 @@ void LCD_ShowString(uint16_t x,uint16_t y,const uint8_t *p,uint16_t color)
 {         
   while(*p!='\0')
   {       
-    if(x>LCD_W-16){x=0;y+=16;}
-    if(y>LCD_H-16){y=x=0;LCD_Clear(RED);}
+    if(x>LCD_W-16)
+    {
+      x=0;
+      y+=16;
+    }
+
+    if(y>LCD_H-16)
+    {
+      y=x=0;
+      LCD_Clear(RED);
+    }
+
     LCD_ShowChar(x,y,*p,0,color);
+
     x+=8;
     p++;
   }  
@@ -589,7 +608,10 @@ void LCD_ShowString(uint16_t x,uint16_t y,const uint8_t *p,uint16_t color)
 uint32_t mypow(uint8_t m,uint8_t n)
 {
   uint32_t result=1;	 
-  while(n--)result*=m;    
+
+  while(n--)
+    result*=m;    
+
   return result;
 }
 
@@ -605,6 +627,7 @@ void LCD_ShowNum(uint16_t x,uint16_t y,uint16_t num,uint8_t len,uint16_t color)
 {         	
   uint8_t t,temp;
   uint8_t enshow=0;
+
   for(t=0;t<len;t++)
   {
     temp=(num/mypow(10,len-t-1))%10;
@@ -634,7 +657,9 @@ void LCD_ShowNum1(uint16_t x,uint16_t y,float num,uint8_t len,uint16_t color)
   uint8_t t,temp;
   // uint8_t enshow=0;
   uint16_t num1;
+
   num1=num*100;
+
   for(t=0;t<len;t++)
   {
     temp=(num1/mypow(10,len-t-1))%10;
@@ -657,7 +682,9 @@ void LCD_ShowNum1(uint16_t x,uint16_t y,float num,uint8_t len,uint16_t color)
 void LCD_ShowPicture(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 {
   int i;
+
   LCD_Address_Set(x1,y1,x2,y2);
+
   for(i=0;i<12800;i++)
   { 	
     // LCD_WR_DATA8(image[i*2+1]);
@@ -668,7 +695,9 @@ void LCD_ShowPicture(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 void LCD_ShowLogo(void)
 {
   int i;
+
   LCD_Address_Set(0,0,159,75);
+
   for(i=0;i<25600;i++)
   {
     LCD_WR_DATA8(logo_bmp[i]);

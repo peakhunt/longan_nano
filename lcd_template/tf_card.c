@@ -408,11 +408,13 @@ DSTATUS disk_initialize (
     { /* Not SDv2 card */
       if (send_cmd(ACMD41, 0) <= 1)
       {	/* SDv1 or MMC? */
-        ty = CT_SD1; cmd = ACMD41;	/* SDv1 (ACMD41(0)) */
+        ty = CT_SD1;
+        cmd = ACMD41;	/* SDv1 (ACMD41(0)) */
       }
       else
       {
-        ty = CT_MMC; cmd = CMD1;	/* MMCv3 (CMD1(0)) */
+        ty = CT_MMC;
+        cmd = CMD1;	/* MMCv3 (CMD1(0)) */
       }
       while (delay_timer1 && send_cmd(cmd, 0))
         ;		/* Wait for end of initialization */
